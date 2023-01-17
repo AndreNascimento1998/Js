@@ -54,7 +54,6 @@ function montaTd(dado, classe) {
 }
 
 function campoBranco(dados){
-    debugger;
     for(let c in dados){
        if(dados[c].length <= 0){
             return false;
