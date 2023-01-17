@@ -1,19 +1,16 @@
 let titulo = document.querySelector(".titulo");
 titulo.textContent = 'Nutricionista';
-let validador = true
+
 
 const pacientes = document.querySelectorAll(".paciente");
 for(let c = 0; c < pacientes.length; c++){
     const tdAltura = pacientes[c].querySelector('.info-altura').textContent;
     const tdPeso = pacientes[c].querySelector(".info-peso").textContent;
-    
-    if((tdAltura <= 0 || tdAltura >= 3.00) || (tdPeso <= 0 || tdPeso >= 1000)){
-        validador = false;
+    let validador = validaPaciente(tdPeso, tdAltura);
+    if(validador){
         pacientes[c].querySelector('.info-imc').textContent = 'Peso/Altura inválidos';
         pacientes[c].classList.add('paciente-invalido');
-    };
-    
-    if(validador){
+    }else {
         const imc = calculaImc(tdPeso, tdAltura) 
         pacientes[c].querySelector('.info-imc').textContent = imc;
     }
@@ -23,4 +20,12 @@ function calculaImc(peso, altura) {
     let imc = 0
     imc = peso / (altura * altura);
     return imc.toFixed(2);
+}
+
+function validaPaciente(peso, altura) {
+    if((peso > 0 && peso < 900) && (altura > 0 && altura < 3.0)){
+        return false;
+    }else {
+        return true;
+    }
 }

@@ -7,8 +7,20 @@ botaoAdd.addEventListener('click', (event) => {
     const paciente = obtemPacienteFormulario(formulario);
     const pacienteTr = montaTr(paciente);
 
-    let tabela = document.querySelector('#tabela-pacientes');
-    tabela.appendChild(pacienteTr);
+    if(campoBranco(paciente)){
+        if (validaPaciente(paciente.peso, paciente.altura)){
+            mensagemEscritaErro('Peso ou Altura inválidas');
+            return;
+        }else {
+            let tabela = document.querySelector('#tabela-pacientes');
+            tabela.appendChild(pacienteTr);
+            mensagemEscritaErro('');
+        }
+    }else {
+        mensagemEscritaErro('Não aceitamos campos vazios');
+        return;
+    }
+    formulario.reset();
 })
 
 function obtemPacienteFormulario(form) {
@@ -23,24 +35,35 @@ function obtemPacienteFormulario(form) {
 
 function montaTr(paciente){
     let pacienteTr = document.createElement('tr');
+    pacienteTr.classList.add('paciente');
 
-    let nomeTd = document.createElement('td');
-    let pesoTd = document.createElement('td');
-    let alturaTd = document.createElement('td');
-    let gorduraTd = document.createElement('td');
-    let imcTd = document.createElement('td');
-
-    nomeTd.textContent =  paciente.nome;
-    pesoTd.textContent = paciente.peso;
-    alturaTd.textContent = paciente.altura;
-    gorduraTd.textContent = paciente.gordura;
-    imcTd.textContent = paciente.imc;
-
-    pacienteTr.appendChild(nomeTd);
-    pacienteTr.appendChild(pesoTd);
-    pacienteTr.appendChild(alturaTd);
-    pacienteTr.appendChild(gorduraTd);
-    pacienteTr.appendChild(imcTd);
+    pacienteTr.appendChild(montaTd(paciente.nome, 'info-nome'));
+    pacienteTr.appendChild(montaTd(paciente.peso, 'info-peso'));
+    pacienteTr.appendChild(montaTd(paciente.altura, 'info-altura'));
+    pacienteTr.appendChild(montaTd(paciente.gordura, 'info-gordura'));
+    pacienteTr.appendChild(montaTd(paciente.imc, 'info-imc'));
 
     return pacienteTr;
+}
+
+function montaTd(dado, classe) {
+    td = document.createElement('td');
+    td.textContent = dado;
+    td.classList.add(classe);
+    return td;
+}
+
+function campoBranco(dados){
+    debugger;
+    for(let c in dados){
+       if(dados[c].length <= 0){
+            return false;
+       }
+    }
+    return true;
+}
+
+function mensagemEscritaErro(mensagem){
+    let mensagemErro = document.querySelector(".mensagem-erro");
+    mensagemErro.textContent = mensagem;
 }
