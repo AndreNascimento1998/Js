@@ -1,5 +1,5 @@
 const listaPacientes = document.querySelectorAll('.paciente');
-const tabelaPai = document.querySelector('table');
+const tabelaPai = document.querySelector('tbody');
 
 tabelaPai.addEventListener('dblclick', function(e){
     e.target.parentNode.classList.add('fadeOut'); 

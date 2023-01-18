@@ -2,7 +2,6 @@ const campofiltro = document.querySelector('#filtrar-tabela');
 campofiltro.addEventListener('input', function() {
     const paciente = document.querySelectorAll('.paciente');
 
-    debugger;
     if(this.value.length > 0){
         paciente.forEach((vl) => {
             const tdNome = vl.querySelector('.info-nome');
