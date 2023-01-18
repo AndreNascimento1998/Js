@@ -5,15 +5,13 @@ botaoAdd.addEventListener('click', (event) => {
     const formulario = document.querySelector('#form-adiciona');
 
     const paciente = obtemPacienteFormulario(formulario);
-    const pacienteTr = montaTr(paciente);
-
+    
     if(campoBranco(paciente)){
         if (validaPaciente(paciente.peso, paciente.altura)){
             mensagemEscritaErro('Peso ou Altura inválidas');
             return;
         }else {
-            let tabela = document.querySelector('#tabela-pacientes');
-            tabela.appendChild(pacienteTr);
+            adicionaPaciente(paciente);
             mensagemEscritaErro('');
         }
     }else {
@@ -22,6 +20,12 @@ botaoAdd.addEventListener('click', (event) => {
     }
     formulario.reset();
 })
+
+function adicionaPaciente(paciente){
+    const pacienteTr = montaTr(paciente);
+    let tabela = document.querySelector('#tabela-pacientes');
+    tabela.appendChild(pacienteTr);
+}
 
 function obtemPacienteFormulario(form) {
     return paciente ={
